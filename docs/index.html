@@ -1,10 +1,13 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>losPibes v 1.0</title>
-    <style>
+    <title>losPibes v 1.1</title>
+
+        <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -13,7 +16,7 @@
             height: 100vh;
             margin: 0;
                 background-color: #323131;
-                
+
         }
         .board {
     width: 300px;
@@ -59,19 +62,20 @@
             display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: flex-start;
     margin: 10px auto;
     width: 70%;
-    height: 240px;
+    height: 280px;
     align-content: center;
     flex-direction: column;
     position: relative;
     align-items: center;
+    /*background: rebeccapurple;*/
+        justify-content: flex-start;
 
         }
         .divider {
             position: absolute;
-            top: 41%;
+            top: 50%;
             left: 0;
             right: 0;
             height: 2px;
@@ -80,9 +84,9 @@
         }
         .set {
             position: relative;
-            width: 20px;
-            height: 20px;
-            margin-bottom: 7px;
+            width: 30px;
+            height: 30px;
+            margin: 4.1px 0;
         }
         .stick {
     position: absolute;
@@ -168,11 +172,20 @@
             
         }
     </style>
+
 </head>
 <body>
 
 <div class="board">
-    <h1>losPibes V1.0</h1>
+    <h1>losPibes V1.1</h1>
+
+    <div>
+        <label for="maxScoreSelect" style="color: white;">Seleccionar puntuación máxima:</label>
+        <select id="maxScoreSelect" onchange="setMaxScore()" style="margin: 10px; padding: 5px; border-radius: 5px;">
+            <option value="15">15 puntos</option>
+            <option value="30" selected>30 puntos</option>
+        </select>
+    </div>
 
     <div class="players">
         <ul id="playerList">
@@ -225,28 +238,29 @@
 
     <div id="winnerMessage"></div>
 </div>
+
 <script>
-    function shufflePlayers() {
-        const playerList = document.getElementById('playerList');
-        const players = Array.from(playerList.children);
-        
-        // Mezclar los elementos de la lista de manera aleatoria
-        players.sort(() => Math.random() - 0.5);
-        
-        // Eliminar todos los elementos de la lista original
-        playerList.innerHTML = '';
-        
-        // Agregar los elementos en el nuevo orden aleatorio
-        players.forEach(player => playerList.appendChild(player));
-    }
-</script>
-<script>
-    const maxScore = 30;
+    let maxScore = 30;
     let scores = { A: 0, B: 0 };
 
+    function setMaxScore() {
+        const selector = document.getElementById('maxScoreSelect');
+        maxScore = parseInt(selector.value);
+        resetGame(); // Reiniciar el juego al cambiar la puntuación máxima
+    }
+
+    function resetGame() {
+        scores = { A: 0, B: 0 };
+        document.querySelectorAll('.score').forEach(scoreContainer => scoreContainer.innerHTML = '');
+        document.getElementById('winnerMessage').innerText = '';
+        document.querySelectorAll('.buttons button').forEach(button => button.disabled = false);
+    }
+
     function updateScore(scoreContainer, team) {
+        const otherTeam = team === 'A' ? 'B' : 'A';
         const divider = document.getElementById(`divider${team}`);
         const score = scores[team];
+        const otherScore = scores[otherTeam];
 
         // Mostrar la línea divisora al llegar a 15 puntos
         if (score >= 15) {
@@ -254,66 +268,81 @@
         } else {
             divider.style.display = 'none';
         }
+// Mostrar el mensaje de ganador al alcanzar la puntuación máxima
+if (score >= maxScore) {
 
-        // Mostrar el mensaje de ganador al llegar a 30 puntos
-        if (score >= maxScore) {
-            const winner = team === 'A' ? 'Les rompimos el culo' : 'Nos rompieron el orto';
-            document.getElementById('winnerMessage').innerText = `${winner}`;
-            disableButtons();
-        }
+
+    const winner = team === 'A' ? 'Les rompimos el culo' : 'Nos rompieron el orto';
+    document.getElementById('winnerMessage').innerText = `${winner}`;
+    disableButtons();
+} 
+// Si no hay ganador, verificar los otros casos
+else {
+    // Mostrar el mensaje "duermen afuera" si se cumplen las condiciones
+    if (score > 25 && otherScore < 15) {
+        document.getElementById('winnerMessage').innerText = `Duermen afuera: ${team === 'A' ? 'ELLOS' : 'NOSOTROS'}`;
+    }
+    // Mostrar el mensaje "Dormimos adentro" si se cumplen las condiciones
+    else if (score > 15 && otherScore > 25) {
+        document.getElementById('winnerMessage').innerText = `Dormimos adentro: ${team === 'A' ? 'ELLOS' : 'NOSOTROS'}`;
+    }
+}
     }
 
     function disableButtons() {
-        // Deshabilitar todos los botones para evitar seguir sumando/restando puntos
         document.querySelectorAll('.buttons button').forEach(button => button.disabled = true);
     }
 
     function addPoint(team) {
-        if (scores[team] >= maxScore) return; // Evitar sumar si ya se alcanzó el puntaje máximo
+        if (scores[team] >= maxScore) return;
 
-        scores[team]++; // Aumentar el puntaje
+        scores[team]++;
         const scoreContainer = document.getElementById(`score${team}`);
         const sets = scoreContainer.querySelectorAll('.set');
         let lastSet = sets[sets.length - 1];
 
-        // Crear un nuevo set si no hay sets o si el último ya tiene 5 palitos
         if (!lastSet || lastSet.childElementCount === 5) {
             lastSet = document.createElement('div');
             lastSet.classList.add('set');
             scoreContainer.appendChild(lastSet);
         }
 
-        // Agregar un nuevo palito al último set
         const stick = document.createElement('div');
         stick.classList.add('stick', `stick${lastSet.childElementCount + 1}`);
         lastSet.appendChild(stick);
 
-        updateScore(scoreContainer, team); // Actualizar visualmente el puntaje y condiciones
+        updateScore(scoreContainer, team);
     }
 
     function subtractPoint(team) {
-        if (scores[team] <= 0) return; // Evitar restar si el puntaje es 0
+        if (scores[team] <= 0) return;
 
-        scores[team]--; // Reducir el puntaje
+        scores[team]--;
         const scoreContainer = document.getElementById(`score${team}`);
         const sets = scoreContainer.querySelectorAll('.set');
         let lastSet = sets[sets.length - 1];
 
         if (lastSet) {
-            // Eliminar el último palito del set
             lastSet.removeChild(lastSet.lastChild);
-
-            // Si el set está vacío, eliminarlo
             if (lastSet.childElementCount === 0) {
                 scoreContainer.removeChild(lastSet);
             }
 
-            updateScore(scoreContainer, team); // Actualizar visualmente el puntaje y condiciones
+            updateScore(scoreContainer, team);
         }
+    }
+
+    function shufflePlayers() {
+        const playerList = document.getElementById('playerList');
+        const players = Array.from(playerList.children);
+        players.sort(() => Math.random() - 0.5);
+        playerList.innerHTML = '';
+        players.forEach(player => playerList.appendChild(player));
     }
 </script>
 
-
-
 </body>
 </html>
+
+
+
