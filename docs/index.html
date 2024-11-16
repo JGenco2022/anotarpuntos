@@ -371,9 +371,17 @@
 
     function resetGame() {
         scores = { A: 0, B: 0 };
-        document.querySelectorAll('.score').forEach(scoreContainer => scoreContainer.innerHTML = '');
+        document.querySelectorAll('.score').forEach(scoreContainer => {
+    Array.from(scoreContainer.children).forEach(child => {
+        if (child.id !== 'dividerA' && child.id !== 'dividerB') {
+            child.remove(); // Elimina los hijos excepto #dividerA y #dividerB
+        }
+    });
+});
+
         document.getElementById('winnerMessage').innerText = '';
         document.querySelectorAll('.buttons button').forEach(button => button.disabled = false);
+        
         document.getElementById('comentarioA').style.display = 'none';
         document.getElementById('comentarioB').style.display = 'none';
     }
