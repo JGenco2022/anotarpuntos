@@ -5,11 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,300,700,800,900">
+
     <title>losPibes v 1.1</title>
 
         <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Montserrat, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,23 +25,28 @@
     width: 300px;
     padding: 20px;
     border: 1px solid #333;
-    background-color: #fff;
+    background-color: #3e3d4f;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     text-align: center;
-    background: url(https://static8.depositphotos.com/1004032/801/i/450/depositphotos_8017488-stock-photo-grain-wall-texture-background.jpg);
-    background-size: cover;
+    /*background: url(https://static8.depositphotos.com/1004032/801/i/450/depositphotos_8017488-stock-photo-grain-wall-texture-background.jpg);
+*/    background-size: cover;
     border-radius: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
         h1 {
                 font-size: 1.5em;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     color: #fff;
     background: transparent;
     padding: 10px;
     border-radius: 8px;
         }
+
+
+        .botones{
+    padding: 15px;
+}
 .team {
     width: 44%;
     display: inline-block;
@@ -46,31 +54,35 @@
     margin: 2%;
     padding: 15px 0;
     background-color: transparent;
-    backdrop-filter: grayscale(1);
-    border-radius: 15px;
-    border: 1px solid #fff;
+    /*backdrop-filter: grayscale(1);*/
+    
+    
 }
      
             .team h2 {
-        margin: 0 0 26px 0px;
+        margin: 0 0 10px 0px;
     color: #ffffff;
     font-weight: lighter;
     font-size: 18px;
 
+
         }
         .score {
-            display: flex;
+    border: 1px solid #fff;
+    display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin: 10px auto;
-    width: 70%;
+    width: 90%;
     height: 280px;
     align-content: center;
     flex-direction: column;
     position: relative;
     align-items: center;
     /*background: rebeccapurple;*/
-        justify-content: flex-start;
+    justify-content: flex-start;
+    border-radius: 8px;
+    padding: 10px 5px;
 
         }
         
@@ -114,25 +126,33 @@
     left: -3px;
     transform: rotate(45deg);
 }
+
+
+
         .buttons {
             display: flex;
             justify-content: center;
             gap: 10px;
         }
         .buttons button {
-            padding: 10px;
-            font-size: 1em;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-        }
+    padding: 0;
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    /* border: none; */
+    border-radius: 100%;
+    line-height: normal;
+}
         .add {
-            background-color: #4CAF50;
-            color: white;
-        }
+    background-color: transparent;
+    color: white;
+    border: 1px solid #fff;
+}
         .subtract {
-            background-color: #f44336;
-            color: white;
+          background-color: transparent;
+    color: white;
+    border: 1px solid #fff;
         }
         #winnerMessage {
            background: transparent;
@@ -145,6 +165,8 @@
 
 
         .players{
+            position: relative;
+                padding-top: 25px;
 
         }
 
@@ -170,7 +192,73 @@
 
         .players h4{
             color: #fff;
-            
+            margin: 5px;
+        }
+
+
+        .comentarioA{
+            display: none;
+    background: #fff;
+    font-size: 11px;
+    width: 73px;
+    padding: 8px 8px;
+    border-radius: 30px;
+    position: absolute;
+    top: -10px;
+    left: 28px;
+        }
+
+        .comentarioA:after{
+            content: '';
+    width: 0;
+    height: 0;
+    border-left: 1px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 20px solid #ffffff;
+    top: 34px;
+    left: 9px;
+    position: absolute;
+        }
+
+
+            .comentarioB{
+                display: none;
+    background: #fff;
+    font-size: 11px;
+    width: 73px;
+    padding: 8px 8px;
+    border-radius: 30px;
+    position: absolute;
+    top: -10px;
+    right: 28px;
+        }
+
+
+           .comentarioB:after{
+            content: '';
+    width: 0;
+    height: 0;
+    border-left: 1px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 20px solid #ffffff;
+    top: 34px;
+    left: 9px;
+    position: absolute;
+        }
+
+
+        #alertBox {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+            font-size: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 
@@ -180,15 +268,22 @@
 <div class="board">
     <h1>losPibes V1.1</h1>
 
-    <div>
-        <label for="maxScoreSelect" style="color: white;">Seleccionar puntuación máxima:</label>
-        <select id="maxScoreSelect" onchange="setMaxScore()" style="margin: 10px; padding: 5px; border-radius: 5px;">
-            <option value="15">15 puntos</option>
-            <option value="30" selected>30 puntos</option>
+    <div class="botones">
+        <!--<label for="maxScoreSelect" style="color: white;">Seleccionar puntuación máxima:</label>-->
+        <select id="maxScoreSelect" onchange="setMaxScore()" style="background: transparent;color: #fff;border: 1px solid #fff;padding: 8px;border-radius: 8px;">
+            <option style="    background: #000;" value="15">15 puntos</option>
+            <option style="    background: #000;" value="30" selected>30 puntos</option>
         </select>
+
+        <button style="background: transparent;color: #fff;border: 1px solid #fff;padding: 8px;border-radius: 8px; cursor: pointer;" onclick="shufflePlayers()">Tirar reyes</button>  
+
+        <button style="background: transparent;color: #fff;border: 1px solid #fff;padding: 8px;border-radius: 8px; cursor: pointer;" onclick="resetGame()">Resetear</button>  
+    
     </div>
 
     <div class="players">
+        <div id="comentarioA" class="comentarioA"></div>
+        <div id="comentarioB" class="comentarioB"></div>
         <ul id="playerList">
             <li>
                 <img src="https://scontent.fmdq1-1.fna.fbcdn.net/v/t39.30808-6/448205603_10223654658491177_9007539530006401837_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHwHvIRoPiPxJ5BZwN4WOxVL7OR4A3FvhQvs5HgDcW-FDsCOQ7etJk_VodjE-BQmi4937RA-VtSAiCFwB6Fdsz9&_nc_ohc=1x3czPOkLGoQ7kNvgESTm4h&_nc_zt=23&_nc_ht=scontent.fmdq1-1.fna&_nc_gid=AaqE2mZFQgDM8yQeomPASYQ&oh=00_AYCzFtEhPx6qX6mqZeHiW2rzAtd0nhLjCgERqYaq9a4edQ&oe=673C1F55">
@@ -208,12 +303,7 @@
             </li>
         </ul>
 
-        <button style="    background: transparent;
-    color: #fff;
-    border: 1px solid #fff;
-    padding: 8px;
-    border-radius: 8px;" onclick="shufflePlayers()">Tirar reyes</button>  
-    </div>
+        
 
     <div class="team" id="teamA">
         <h2>NOSOTROS</h2>
@@ -221,8 +311,8 @@
             <div class="divider" id="dividerA"></div>
         </div>
         <div class="buttons">
-            <button class="add" onclick="addPoint('A')">+1</button>
-            <button class="subtract" onclick="subtractPoint('A')">-1</button>
+            <button class="add" onclick="addPoint('A')">+</button>
+            <button class="subtract" onclick="subtractPoint('A')">-</button>
         </div>
     </div>
 
@@ -232,22 +322,51 @@
             <div class="divider" id="dividerB"></div>
         </div>
         <div class="buttons">
-            <button class="add" onclick="addPoint('B')">+1</button>
-            <button class="subtract" onclick="subtractPoint('B')">-1</button>
+            <button class="add" onclick="addPoint('B')">+</button>
+            <button class="subtract" onclick="subtractPoint('B')">-</button>
         </div>
     </div>
 
     <div id="winnerMessage"></div>
+    <div id="alertBox">No estás anotando</div>
 </div>
+ <script>
+        let timeout;
+
+        // Mostrar el mensaje de inactividad
+        function showAlert() {
+            document.getElementById('alertBox').style.display = 'block';
+        }
+
+        // Reiniciar el temporizador de inactividad
+        function resetTimer() {
+            clearTimeout(timeout); // Limpiar el temporizador anterior
+            document.getElementById('alertBox').style.display = 'none'; // Ocultar el mensaje si estaba visible
+            timeout = setTimeout(showAlert, 30000); // Reiniciar el temporizador (30 segundos)
+        }
+
+        // Escuchar eventos de clic en todos los botones
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', resetTimer);
+        });
+
+        // Iniciar el temporizador al cargar la página
+        resetTimer();
+    </script>
+
 
 <script>
     let maxScore = 30;
     let scores = { A: 0, B: 0 };
 
+    
+
     function setMaxScore() {
         const selector = document.getElementById('maxScoreSelect');
         maxScore = parseInt(selector.value);
         resetGame(); // Reiniciar el juego al cambiar la puntuación máxima
+        document.getElementById('comentarioA').style.display = 'none';
+        document.getElementById('comentarioB').style.display = 'none';
     }
 
     function resetGame() {
@@ -255,20 +374,18 @@
         document.querySelectorAll('.score').forEach(scoreContainer => scoreContainer.innerHTML = '');
         document.getElementById('winnerMessage').innerText = '';
         document.querySelectorAll('.buttons button').forEach(button => button.disabled = false);
+        document.getElementById('comentarioA').style.display = 'none';
+        document.getElementById('comentarioB').style.display = 'none';
     }
 
     function updateScore(scoreContainer, team) {
+        console.log(maxScore)
         const otherTeam = team === 'A' ? 'B' : 'A';
         const divider = document.getElementById(`divider${team}`);
         const score = scores[team];
         const otherScore = scores[otherTeam];
 
-        // Mostrar la línea divisora al llegar a 15 puntos
-        if (score >= 15) {
-            divider.style.display = 'block';
-        } else {
-            divider.style.display = 'none';
-        }
+
 // Mostrar el mensaje de ganador al alcanzar la puntuación máxima
 if (score >= maxScore) {
 
@@ -278,17 +395,42 @@ if (score >= maxScore) {
     disableButtons();
 } 
 // Si no hay ganador, verificar los otros casos
-else {
+if(maxScore == 30){
     // Mostrar el mensaje "duermen afuera" si se cumplen las condiciones
     if (score > 25 && otherScore < 15) {
-        document.getElementById('winnerMessage').innerText = `Duermen afuera: ${team === 'A' ? 'ELLOS' : 'NOSOTROS'}`;
+        document.getElementById('comentario'+team).style.display = 'block';
+        document.getElementById('comentario'+team).innerText = `¡Duermen afuera!`;
     }
     // Mostrar el mensaje "Dormimos adentro" si se cumplen las condiciones
     else if (score > 15 && otherScore > 25) {
-        document.getElementById('winnerMessage').innerText = `Dormimos adentro: ${team === 'A' ? 'ELLOS' : 'NOSOTROS'}`;
+        document.getElementById('comentario'+team).style.display = 'block';
+        document.getElementById('comentario'+team).innerText = `¡Dormimos adentro!`;
+        if(team == 'A'){
+            if (document.getElementById('comentarioA').style.display === 'block') {
+                document.getElementById('comentarioB').style.display = 'none';
+            }
+        }else{
+            if (document.getElementById('comentarioB').style.display === 'block') {
+                document.getElementById('comentarioA').style.display = 'none';
+            }
+        }
     }
+
+
+
 }
+
+        // Mostrar la línea divisora al llegar a 15 puntos
+        if (score >= 15) {
+            divider.style.display = 'block';
+        } else {
+            divider.style.display = 'none';
+        }
+
     }
+
+
+
 
     function disableButtons() {
         document.querySelectorAll('.buttons button').forEach(button => button.disabled = true);
