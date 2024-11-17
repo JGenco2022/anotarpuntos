@@ -155,12 +155,17 @@
     border: 1px solid #fff;
         }
         #winnerMessage {
-           background: transparent;
-    font-size: 1.2em;
-    color: #8BC34A;
-    font-weight: bold;
-    margin-top: 20px;
-    padding: 10px 5px;
+        display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+                background-color: #72cd0a;
+    color: #021805;
+            font-size: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
 
@@ -179,6 +184,7 @@
         .players li{
                 display: inline-block;
     width: 23%;
+    position: relative;
             
         }
 
@@ -206,6 +212,7 @@
     position: absolute;
     top: -10px;
     left: 28px;
+        z-index: 1;
         }
 
         .comentarioA:after{
@@ -231,6 +238,7 @@
     position: absolute;
     top: -10px;
     right: 28px;
+        z-index: 1;
         }
 
 
@@ -247,7 +255,7 @@
         }
 
 
-        #alertBox {
+       /* #alertBox2 {
             display: none;
             position: fixed;
             top: 50%;
@@ -259,7 +267,35 @@
             font-size: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }*/
+
+
+   #alertBox{
+    display: none;
+    background: #fff;
+    font-size: 11px;
+    width: 73px;
+    padding: 8px 8px;
+    border-radius: 30px;
+    position: absolute;
+    top: -38px;
+    left: 28px;
+        z-index: 2;
         }
+
+
+   #alertBox:after{
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 1px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 20px solid #ffffff;
+    top: 34px;
+    left: 9px;
+    position: absolute;
+        }
+
     </style>
 
 </head>
@@ -290,6 +326,7 @@
                 <h4>Vizzo</h4>
             </li>
              <li>
+                <div id="alertBox">No estás anotando</div>
                 <img src="https://scontent.fmdq1-1.fna.fbcdn.net/v/t39.30808-6/465663154_8738223169571624_2215348488523488667_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGODV2M4e4PkFZxv6QKzqYuZ8DS9K39cxBnwNL0rf1zEMc-BXWPDB5xwC67qE2gRq5p2iLW_7QbmxJxL0EdL_Qr&_nc_ohc=HHfsZ1W7vIwQ7kNvgHu_Wsi&_nc_zt=23&_nc_ht=scontent.fmdq1-1.fna&_nc_gid=A5IZxaH4rflrXmDKu5CO7I4&oh=00_AYAVHdojgdx8DK1go7Lo1InXnxs_pMqpNkS_GncByX_Rew&oe=673C22F4">
                 <h4>Genco</h4>
             </li>
@@ -328,7 +365,7 @@
     </div>
 
     <div id="winnerMessage"></div>
-    <div id="alertBox">No estás anotando</div>
+    
 </div>
  <script>
         let timeout;
@@ -342,7 +379,7 @@
         function resetTimer() {
             clearTimeout(timeout); // Limpiar el temporizador anterior
             document.getElementById('alertBox').style.display = 'none'; // Ocultar el mensaje si estaba visible
-            timeout = setTimeout(showAlert, 30000); // Reiniciar el temporizador (30 segundos)
+            timeout = setTimeout(showAlert, 10000); // Reiniciar el temporizador (30 segundos)
         }
 
         // Escuchar eventos de clic en todos los botones
@@ -380,6 +417,7 @@
 });
 
         document.getElementById('winnerMessage').innerText = '';
+        document.getElementById('winnerMessage').style.display = 'none';
         document.querySelectorAll('.buttons button').forEach(button => button.disabled = false);
         
         document.getElementById('comentarioA').style.display = 'none';
@@ -398,7 +436,8 @@
 if (score >= maxScore) {
 
 
-    const winner = team === 'A' ? 'Les rompimos el culo' : 'Nos rompieron el orto';
+    const winner = team === 'A' ? '¡GANAMOS!' : 'GANARON ELLOS';
+     document.getElementById('winnerMessage').style.display = 'block';
     document.getElementById('winnerMessage').innerText = `${winner}`;
     disableButtons();
 } 
