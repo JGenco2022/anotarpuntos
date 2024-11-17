@@ -452,7 +452,7 @@ if(maxScore == 30){
         document.getElementById('comentario'+team).innerText = `¡Duermen afuera!`;
     }
     // Mostrar el mensaje "Dormimos adentro" si se cumplen las condiciones
-    else if (score > 15 && otherScore > 25) {
+    else if (score > 15 && score < 17 && otherScore > 25) {
         document.getElementById('comentario'+team).style.display = 'block';
         document.getElementById('comentario'+team).innerText = `¡Dormimos adentro!`;
         if(team == 'A'){
