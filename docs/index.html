@@ -299,10 +299,67 @@
     position: absolute;
         }
 
+
+
+       .inputplayer {
+        position: absolute;
+    width: 70%;
+    top: 20%;
+    left: 10%;
+    background: #fff;
+    height: 36%;
+    text-align: center;
+    padding: 5%;
+    border-radius: 15px;
+z-index: 9}
+
+
+    .inputplayer input{padding: 10px 6px;
+    width: 45%;
+    display: inline-block;
+    margin: 10px auto;
+    border-radius: 10px;
+    border: none;
+    background: #00000063;}
+
+
+    .inputplayer button{background: transparent;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #000;
+}
+
     </style>
 
 </head>
 <body>
+
+
+    <div class="inputplayer" id="inputplayer">
+
+        <h3 style="    margin: 10px;font-size: 16px;">INGRESE JUGADORES</h3>
+        
+            <form>
+        <div>
+            <input type="text" id="player1Input" placeholder="Jugador 1">
+            <input type="file" id="player1Image" accept="image/*">
+        </div>
+        <div>
+            <input type="text" id="player2Input" placeholder="Jugador 2">
+            <input type="file" id="player2Image" accept="image/*">
+        </div>
+        <div>
+            <input type="text" id="player3Input" placeholder="Jugador 3">
+            <input type="file" id="player3Image" accept="image/*">
+        </div>
+        <div>
+            <input type="text" id="player4Input" placeholder="Jugador 4">
+            <input type="file" id="player4Image" accept="image/*">
+        </div>
+        <button type="button" onclick="addPlayers()">GUARDAR</button>
+    </form>
+</div>
+    </div>
 
 <div class="board">
     <h1>ANOTADOR TRUCO V1.0</h1>
@@ -324,22 +381,22 @@
         <div id="comentarioA" class="comentarioA"></div>
         <div id="comentarioB" class="comentarioB"></div>
         <ul id="playerList">
-            <li>
-                <img src="https://scontent.fmdq1-1.fna.fbcdn.net/v/t39.30808-6/448205603_10223654658491177_9007539530006401837_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHwHvIRoPiPxJ5BZwN4WOxVL7OR4A3FvhQvs5HgDcW-FDsCOQ7etJk_VodjE-BQmi4937RA-VtSAiCFwB6Fdsz9&_nc_ohc=1x3czPOkLGoQ7kNvgESTm4h&_nc_zt=23&_nc_ht=scontent.fmdq1-1.fna&_nc_gid=AaqE2mZFQgDM8yQeomPASYQ&oh=00_AYCzFtEhPx6qX6mqZeHiW2rzAtd0nhLjCgERqYaq9a4edQ&oe=673C1F55">
-                <h4>Vizzo</h4>
+            <li class="player1">
+                <img src="">
+                <h4></h4>
             </li>
-             <li>
+             <li class="player2">
                 <div id="alertBox">No estás anotando</div>
-                <img src="https://scontent.fmdq1-1.fna.fbcdn.net/v/t39.30808-6/465663154_8738223169571624_2215348488523488667_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGODV2M4e4PkFZxv6QKzqYuZ8DS9K39cxBnwNL0rf1zEMc-BXWPDB5xwC67qE2gRq5p2iLW_7QbmxJxL0EdL_Qr&_nc_ohc=HHfsZ1W7vIwQ7kNvgHu_Wsi&_nc_zt=23&_nc_ht=scontent.fmdq1-1.fna&_nc_gid=A5IZxaH4rflrXmDKu5CO7I4&oh=00_AYAVHdojgdx8DK1go7Lo1InXnxs_pMqpNkS_GncByX_Rew&oe=673C22F4">
-                <h4>Genco</h4>
+                <img src="4">
+                <h4></h4>
             </li>
-             <li>
-                <img src="https://scontent.fmdq1-1.fna.fbcdn.net/v/t39.30808-1/345472097_1901696413542661_397395533737407953_n.jpg?stp=c0.0.1200.1200a_dst-jpg_s200x200&_nc_cat=105&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeG9y6mfDPd6Oak40O-NyK6lOhaLcl0d8Yg6FotyXR3xiITZ09MPICNHDFYih8QKM5eHo_dzvlozhrDwEzDdR6TK&_nc_ohc=DrWe_hAYD9MQ7kNvgEIRCgB&_nc_zt=24&_nc_ht=scontent.fmdq1-1.fna&_nc_gid=ArqnG_TFxV6oSVvk3KLMrGo&oh=00_AYB7u5SsDzncSb6TsgAj6PqDIiZ68NvBL5iHnXpm5evFmA&oe=673C41F4">
-                <h4>Trocco</h4>
+             <li class="player3">
+                <img src="">
+                <h4></h4>
             </li>
-             <li>
-                <img src="https://scontent.fmdq1-1.fna.fbcdn.net/v/t39.30808-1/367065309_6795368713841682_2485357196754649957_n.jpg?stp=dst-jpg_s200x200&_nc_cat=101&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeEYFAQOeKabo4tIuY62YrbGkO39NG_4M9SQ7f00b_gz1KsOMDVFg0a0RzE0erfn4b8DfonQA54aD9SHmIWNYCOD&_nc_ohc=lyCim3XvDD4Q7kNvgGKSBio&_nc_zt=24&_nc_ht=scontent.fmdq1-1.fna&_nc_gid=AjnJf9PKwFFWwjXupsCOU8x&oh=00_AYC4ZyvcE8kON-e7Zuaryi-w0MtbHKEF4u1UWlv-JOb2mQ&oe=673C31CB">
-                <h4>Juan</h4>
+             <li class="player4">
+                <img src="">
+                <h4></h4>
             </li>
         </ul>
 
@@ -370,6 +427,65 @@
     <div id="winnerMessage"></div>
     
 </div>
+
+
+<script>
+
+
+function addPlayers() {
+    const players = [];
+
+    // Obtener datos de los jugadores
+    for (let i = 1; i <= 4; i++) {
+        const nameInput = document.getElementById(`player${i}Input`); // Aquí estaba el error
+        const imageInput = document.getElementById(`player${i}Image`);
+        const playerData = {
+            name: nameInput.value || 'Sin nombre',
+            image: imageInput.files[0] ? URL.createObjectURL(imageInput.files[0]) : null // Generar URL temporal si hay imagen
+        };
+        players.push(playerData);
+    }
+
+    // Asignar nombres e imágenes
+    document.querySelectorAll('#playerList li').forEach((li, index) => {
+        const nameElement = li.querySelector('h4');
+        const imgElement = li.querySelector('img');
+
+        if (nameElement) nameElement.textContent = players[index].name;
+        if (imgElement && players[index].image) {
+            imgElement.src = players[index].image; // Asignar la imagen cargada
+        }
+    });
+
+
+
+    document.getElementById('inputplayer').style.display = 'none'; 
+}
+
+
+/*function addPlayers() {
+    // Crear un arreglo para almacenar los nombres de los jugadores
+    const players = [];
+
+    // Obtener los valores de los campos de entrada y almacenarlos en el arreglo
+    players.push(document.getElementById('player1Input').value || 'Sin nombre');
+    players.push(document.getElementById('player2Input').value || 'Sin nombre');
+    players.push(document.getElementById('player3Input').value || 'Sin nombre');
+    players.push(document.getElementById('player4Input').value || 'Sin nombre');
+
+    // Iterar sobre los elementos <li> y asignar los nombres del arreglo
+    document.querySelectorAll('#playerList li').forEach((li, index) => {
+        const nameElement = li.querySelector('h4'); // Encontrar el <h4> dentro del <li>
+        if (nameElement) {
+            nameElement.textContent = players[index]; // Asignar el nombre correspondiente
+        }
+    });
+
+    document.getElementById('inputplayer').style.display = 'none'; 
+}*/
+</script>
+
+
  <script>
         let timeout;
 
